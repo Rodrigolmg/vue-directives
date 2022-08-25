@@ -4,8 +4,8 @@
 		<p v-text="'Usando diretiva text'"></p>
 		<p v-html="'Usando diretiva <strong>v-html</strong>'"></p>
 		<hr>
-		<p v-highLocal.atrasar="'red'">Usando diretiva personalizada com valor da cor de fundo <strong>VERMELHA</strong></p>
-		<p v-highLocal.atrasar="cor">Usando diretiva personalizada com valor da cor de fundo <strong>AZUL</strong></p>
+		<p v-highLocal.delay.alter="'red'">Usando diretiva personalizada com valor da cor de fundo <strong>VERMELHA</strong></p>
+		<p v-highLocal.alter="cor">Usando diretiva personalizada com valor da cor de fundo <strong>AZUL</strong></p>
 
 		<!-- Anatomia de diretivas:
 			<tag v-nomeDiretiva:argumento.mod1.mod2="valor"></tag> -->
@@ -18,16 +18,30 @@ export default {
 		'highLocal': {
 			bind(el, binding){
 
+				const applyColor = color => {
+					if(binding.arg === 'fundo'){
+						el.style.backgroundColor = color
+					} else {
+						el.style.color = color
+					}
+				}
+
 				let delay = 0;
 
-				if(binding.modifiers['atrasar']) delay = 3000
+				if(binding.modifiers['delay']) delay = 3000
+
+				const firstColor = binding.value
+				const secondColor = 'purple'
+				let currentColor = firstColor
 
 				setTimeout(() => {
-					if(binding.arg === 'fundo'){
-						el.style.backgroundColor = binding.value
-					} else {
-						el.style.color = binding.value
+					if(binding.modifiers['alter']) {
+						setInterval(() =>{
+							currentColor = currentColor === firstColor ? secondColor : firstColor
+							applyColor(currentColor)
+						}, 1000)
 					}
+					applyColor(binding.value)
 				}, delay)
 
 				// el.style.backgroundColor = 'lightgreen'
