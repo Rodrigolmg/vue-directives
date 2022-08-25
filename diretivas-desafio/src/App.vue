@@ -2,9 +2,15 @@
 	<div id="app">
 		<h1>Diretivas (Desafio)</h1>
 		<hr>
-		<label :style="numberColor">{{ labelTextNumber }}</label>
+		<label :style="numberColor" 
+			v-when:mouseenter="showNumberQuantity" 
+			v-when:mouseleave="hideNumberQuantity">{{ labelTextNumber }}</label>
 		<div>
-			<button v-when="changeValue">Mudar valor</button>
+			<button v-when:click="changeValue">Mudar valor</button>
+		</div>
+		<div id="result" :style="painelStyle">
+			<p>Pares: {{ even }}</p>
+			<p>Ímpares: {{ odd }}</p>
 		</div>
 		<!-- Exercício -->
 		<!-- Escreva uma diretiva que funcione com o v-on (escute eventos) -->
@@ -16,9 +22,15 @@
 		directives: {
 			when: {
 				bind(el, binding){
-					el.onclick = function(){
-						binding.value()
-					}
+					// el.onclick = function(){
+					// 	binding.value()
+					// }
+
+					const argType = binding.arg
+					const fn = binding.value
+
+					el.addEventListener(argType, fn)
+
 				}
 			}
 		},
@@ -26,6 +38,7 @@
 			return {
 				labelTextNumber: 0.0,
 				numberColor: {},
+				painelStyle: {},
 				even: 0,
 				odd: 0
 			}
@@ -46,6 +59,16 @@
 					color: nColor
 				}
 				
+			},
+			showNumberQuantity(){
+				this.painelStyle = {
+					visibility: 'visible'
+				}
+			},
+			hideNumberQuantity(){
+				this.painelStyle = {
+					visibility: 'hidden'
+				}
 			}
 		}
 	}
@@ -71,7 +94,7 @@ button {
 	background-color: #2196F3;
 }
 
-.painel {
-	display: column;
+#result {
+	visibility: hidden;
 }
 </style>
