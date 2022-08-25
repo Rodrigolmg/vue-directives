@@ -4,8 +4,8 @@
 		<p v-text="'Usando diretiva text'"></p>
 		<p v-html="'Usando diretiva <strong>v-html</strong>'"></p>
 		<hr>
-		<p v-highlights.atrasar="'red'">Usando diretiva personalizada com valor da cor de fundo <strong>VERMELHA</strong></p>
-		<p v-highlights.atrasar="cor">Usando diretiva personalizada com valor da cor de fundo <strong>AZUL</strong></p>
+		<p v-highLocal.atrasar="'red'">Usando diretiva personalizada com valor da cor de fundo <strong>VERMELHA</strong></p>
+		<p v-highLocal.atrasar="cor">Usando diretiva personalizada com valor da cor de fundo <strong>AZUL</strong></p>
 
 		<!-- Anatomia de diretivas:
 			<tag v-nomeDiretiva:argumento.mod1.mod2="valor"></tag> -->
@@ -14,6 +14,26 @@
 
 <script>
 export default {
+	directives:{
+		'highLocal': {
+			bind(el, binding){
+
+				let delay = 0;
+
+				if(binding.modifiers['atrasar']) delay = 3000
+
+				setTimeout(() => {
+					if(binding.arg === 'fundo'){
+						el.style.backgroundColor = binding.value
+					} else {
+						el.style.color = binding.value
+					}
+				}, delay)
+
+				// el.style.backgroundColor = 'lightgreen'
+			}
+		}
+	},
 	data(){
 		return {
 			cor: 'lightblue'
