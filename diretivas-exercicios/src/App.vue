@@ -4,8 +4,8 @@
 		<p v-text="'Usando diretiva text'"></p>
 		<p v-html="'Usando diretiva <strong>v-html</strong>'"></p>
 		<hr>
-		<p v-highlights="'red'">Usando diretiva personalizada com valor da cor de fundo <strong>VERMELHA</strong></p>
-		<p v-highlights:fundo="cor">Usando diretiva personalizada com valor da cor de fundo <strong>AZUL</strong></p>
+		<p v-highlights.atrasar="'red'">Usando diretiva personalizada com valor da cor de fundo <strong>VERMELHA</strong></p>
+		<p v-highlights.atrasar="cor">Usando diretiva personalizada com valor da cor de fundo <strong>AZUL</strong></p>
 	</div>
 </template>
 

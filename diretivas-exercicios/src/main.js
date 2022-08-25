@@ -5,12 +5,20 @@ Vue.config.productionTip = false
 
 Vue.directive('highlights', {
 	bind(el, binding){
+
+		let delay = 0;
+
+		if(binding.modifiers['atrasar']) delay = 3000
+
+		setTimeout(() => {
+			if(binding.arg === 'fundo'){
+				el.style.backgroundColor = binding.value
+			} else {
+				el.style.color = binding.value
+			}
+		}, delay)
+
 		// el.style.backgroundColor = 'lightgreen'
-		if(binding.arg === 'fundo'){
-			el.style.backgroundColor = binding.value
-		} else {
-			el.style.color = binding.value
-		}
 	}
 })
 
