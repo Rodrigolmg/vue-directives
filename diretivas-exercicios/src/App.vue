@@ -6,6 +6,9 @@
 		<hr>
 		<p v-highlights.atrasar="'red'">Usando diretiva personalizada com valor da cor de fundo <strong>VERMELHA</strong></p>
 		<p v-highlights.atrasar="cor">Usando diretiva personalizada com valor da cor de fundo <strong>AZUL</strong></p>
+
+		<!-- Anatomia de diretivas:
+			<tag v-nomeDiretiva:argumento.mod1.mod2="valor"></tag> -->
 	</div>
 </template>
 
